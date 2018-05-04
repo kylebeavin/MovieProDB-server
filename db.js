@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('Iridium', 'postgres', 'Sano819', {
+const sequelize = new Sequelize(process.env.dbName, 'postgres', process.env.dbPassword, {
   host: 'localhost',
   dialect: 'postgres'
 })
