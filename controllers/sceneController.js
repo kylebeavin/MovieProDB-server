@@ -3,7 +3,7 @@ const sequelize = require('../db');
 
 const SceneModel = sequelize.import('../models/scene.js');
 
-router.get('/scenes/:id', (req,res) => {
+router.get('/:id', (req,res) => {
   SceneModel
     .findOne({where: {
       id: req.params.id
@@ -11,8 +11,8 @@ router.get('/scenes/:id', (req,res) => {
     .then(data => res.json(data))
 })
 
-router.post('/scenes', (req,res) => {
-  AreaModel
+router.post('/', (req,res) => {
+  SceneModel
     .create({
       movie_id: req.body.scene.movie_id,
       timestampStart: req.body.scene.timestampStart,
@@ -21,8 +21,8 @@ router.post('/scenes', (req,res) => {
     .then(submission => res.json(submission))
 })
 
-router.put('/scenes/:id', (req,res) => {
-  InteractableModel
+router.put('/:id', (req,res) => {
+  SceneModel
     .update({
       movie_id: req.body.scene.movie_id,
       timestampStart: req.body.scene.timestampStart,
@@ -33,8 +33,8 @@ router.put('/scenes/:id', (req,res) => {
     .then(res.send('Updated.'))
 })
 
-router.delete('/scenes/delete/:id', (req,res) => {
-  AreaModel
+router.delete('/delete/:id', (req,res) => {
+  SceneModel
     .destroy({where: { id: req.params.id }})
     .then(res.send("Scene deleted."))
 })
