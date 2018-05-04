@@ -10,11 +10,11 @@ app.use(bodyParser.json());
 // app.use(require('./middleware/headers'));
 // app.use(require('./middleware/validate-session'));
 
-// app.use('/users', require("./controllers/user"));
-// app.use('/movies', require('./controllers/session'));
-app.use('/scenes', require('./controllers/sceneController'));
-// app.use('/products', require('./controllers/log'));
-// app.use('/bridge', require('./controllers/bridge'));
+app.use('/api/users', require('./controllers/userController'));
+// app.use('/api/movies', require('./controllers/session'));
+app.use('/api/scenes', require('./controllers/sceneController'));
+// app.use('/api/products', require('./controllers/log'));
+// app.use('/api/entries', require('./controllers/bridge'));
 
 app.listen(process.env.PORT, () => {
 	console.log(`App is running on ${process.env.PORT}`);
