@@ -14,7 +14,7 @@ app.use('/api/users', require('./controllers/userController'));
 // app.use('/api/movies', require('./controllers/session'));
 app.use('/api/scenes', require('./controllers/sceneController'));
 // app.use('/api/products', require('./controllers/log'));
-// app.use('/api/entries', require('./controllers/bridge'));
+app.use('/api/entries', require('./controllers/entryController'));
 
 app.listen(process.env.PORT, () => {
 	console.log(`App is running on ${process.env.PORT}`);
