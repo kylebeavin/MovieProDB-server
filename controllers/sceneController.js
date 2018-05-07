@@ -18,7 +18,13 @@ router.post('/', (req,res) => {
       timestampStart: req.body.scene.timestampStart,
       timestampEnd: req.body.scene.timestampEnd
     })
-    .then(submission => res.json(submission))
+    .then(
+      createSuccess = submission => res.json({
+        scene: submission,
+        message: "Created"
+      }),
+      createError = err => res.send(500, err.message)
+    )
 })
 
 router.put('/:id', (req,res) => {
@@ -30,13 +36,19 @@ router.put('/:id', (req,res) => {
     },{where: {
       id: req.params.id
     }})
-    .then(res.send('Updated.'))
+    .then(
+      updateSuccess = submission => res.json("Scene updated."),
+      updateError = err => res.send(500, err.message)
+    )
 })
 
 router.delete('/delete/:id', (req,res) => {
   SceneModel
     .destroy({where: { id: req.params.id }})
-    .then(res.send("Scene deleted."))
+    .then(
+      deleteSuccess = () => res.send("Scene deleted."),
+      deleteError = err => res.send(500, err.message)
+    )
 })
 
 module.exports = router;

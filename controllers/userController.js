@@ -17,7 +17,7 @@ router.post('/register', (req, res) => {
         company: req.body.user.company,
         title: req.body.user.title,
         userType: req.body.user.userType,
-        regStatus: req.body.user.regStatus
+        regStatus: false
     }).then(
         createSuccess = (user) => {
             const token = jwt.sign({ id: user.dataValues.id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 });
