@@ -7,8 +7,8 @@ const bodyParser = require('body-parser');
 sequelize.sync();
 app.use(bodyParser.json());
 
-// app.use(require('./middleware/headers'));
-// app.use(require('./middleware/validate-session'));
+app.use(require('./middleware/headers'));
+app.use(require('./middleware/validate-session'));
 
 app.use('/api/users', require('./controllers/userController'));
 app.use('/api/movies', require('./controllers/movieController'));
