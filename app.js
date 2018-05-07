@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use('/api/users', require('./controllers/userController'));
 // app.use('/api/movies', require('./controllers/session'));
 app.use('/api/scenes', require('./controllers/sceneController'));
-// app.use('/api/products', require('./controllers/log'));
+app.use('/api/products', require('./controllers/productsController'));
 app.use('/api/entries', require('./controllers/entryController'));
 
 app.listen(process.env.PORT, () => {
