@@ -1,7 +1,7 @@
-module.exports = (seq, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
     return sequelize.define('movie', {
         title: DataTypes.STRING,
-        productionCompany: DataTypes.INTEGER,
+        productionCompany: DataTypes.STRING,
         genre: DataTypes.STRING
     })
 }

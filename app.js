@@ -7,14 +7,14 @@ const bodyParser = require('body-parser');
 sequelize.sync();
 app.use(bodyParser.json());
 
-// app.use(require('./middleware/headers'));
-// app.use(require('./middleware/validate-session'));
+app.use(require('./middleware/headers'));
+app.use(require('./middleware/validate-session'));
 
 app.use('/api/users', require('./controllers/userController'));
-// app.use('/api/movies', require('./controllers/session'));
+app.use('/api/movies', require('./controllers/movieController'));
 app.use('/api/scenes', require('./controllers/sceneController'));
-// app.use('/api/products', require('./controllers/log'));
-// app.use('/api/entries', require('./controllers/bridge'));
+app.use('/api/products', require('./controllers/productsController'));
+app.use('/api/entries', require('./controllers/entryController'));
 
 app.listen(process.env.PORT, () => {
 	console.log(`App is running on ${process.env.PORT}`);
