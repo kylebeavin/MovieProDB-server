@@ -11,6 +11,15 @@ router.get('/:id', (req,res) => {
     .then(data => res.json(data))
 })
 
+router.get('/', (req,res) => {
+  EntryModel
+    .findAll()
+    .then(
+      successRetrieval = data => res.json(data),
+      failedRetrieval = err => res.send(500, err.message)
+    )
+})
+
 router.post('/', (req,res) => {
   EntryModel
     .create({
