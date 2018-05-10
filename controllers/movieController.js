@@ -43,6 +43,15 @@ router.get('/:id', function(req,res){
     )
 })
 
+router.get('/', (req,res) => {
+    Movie
+        .findAll()
+        .then(
+            successRetrieval = data => res.json(data),
+            failedRetrieval = err => res.send(500, err.message)
+        )
+})
+
 router.put('/:id', function(req, res){
     var dataid = req.params.id;
     Movie.update({
