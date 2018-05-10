@@ -41,7 +41,7 @@ router.get('/:id', function(req,res){
             res.send(500, err.message)
         }
     )
-})
+}) 
 
 router.get('/', (req,res) => {
     Movie
