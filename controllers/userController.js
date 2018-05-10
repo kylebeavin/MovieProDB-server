@@ -5,27 +5,19 @@ const User = sequelize.import('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-router.post('/', (req, res) => {
-    let firstname = req.body.user.firstname;
-    let lastname = req.body.user.lastname;
-    let email = req.body.user.email;
-    let username = req.body.user.username;
-    let password = req.body.user.password;
-    let companyID = req.body.user.companyID;
-    let title = req.body.user.title;
-    let userType = req.body.user.userType;
-    let regStatus = req.body.user.regStatus;
+router.post('/register', (req, res) => {
+    let password = bcrypt.hashSync(req.body.user.password, 10);
 
     User.create({
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        username: username,
-        password: bcrypt.hashSync(password, 10),
-        companyID: companyID,
-        title: title,
-        userType: userType,
-        regStatus: regStatus
+        firstName: req.body.user.firstName,
+        lastName: req.body.user.lastName,
+        email: req.body.user.email,
+        username: req.body.user.username,
+        password: password,
+        company: req.body.user.company,
+        title: req.body.user.title,
+        userType: req.body.user.userType,
+        regStatus: false
     }).then(
         createSuccess = (user) => {
             const token = jwt.sign({ id: user.dataValues.id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 });
@@ -42,7 +34,7 @@ router.post('/', (req, res) => {
     );
 });
 
-router.post('/signin', (req, res) => {
+router.post('/login', (req, res) => {
     User.findOne({
         where: {
             username: req.body.user.username

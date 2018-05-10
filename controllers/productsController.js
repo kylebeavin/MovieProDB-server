@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const sequelize = require('../db');
 
-const SceneModel = sequelize.import('../models/scene.js');
+const ProductModel = sequelize.import('../models/product.js');
 
 router.get('/:id', (req,res) => {
-  SceneModel
+  ProductModel
     .findOne({where: {
       id: req.params.id
     }})
@@ -12,15 +12,17 @@ router.get('/:id', (req,res) => {
 })
 
 router.post('/', (req,res) => {
-  SceneModel
+  ProductModel
     .create({
-      movie_id: req.body.scene.movie_id,
-      timestampStart: req.body.scene.timestampStart,
-      timestampEnd: req.body.scene.timestampEnd
+      productName: req.body.product.productName,
+      seller: req.body.product.seller,
+      productNumber: req.body.product.productNumber,
+      price: req.body.product.price,
+      category: req.body.product.category
     })
     .then(
       createSuccess = submission => res.json({
-        scene: submission,
+        product: submission,
         message: "Created"
       }),
       createError = err => res.send(500, err.message)
@@ -28,25 +30,27 @@ router.post('/', (req,res) => {
 })
 
 router.put('/:id', (req,res) => {
-  SceneModel
+  ProductModel
     .update({
-      movie_id: req.body.scene.movie_id,
-      timestampStart: req.body.scene.timestampStart,
-      timestampEnd: req.body.scene.timestampEnd
+      productName: req.body.product.productName,
+      seller: req.body.product.seller,
+      productNumber: req.body.product.productNumber,
+      price: req.body.product.price,
+      category: req.body.product.category
     },{where: {
       id: req.params.id
     }})
     .then(
-      updateSuccess = submission => res.json("Scene updated."),
+      updateSuccess = submission => res.json("Product updated."),
       updateError = err => res.send(500, err.message)
     )
 })
 
 router.delete('/delete/:id', (req,res) => {
-  SceneModel
+  ProductModel
     .destroy({where: { id: req.params.id }})
     .then(
-      deleteSuccess = () => res.send("Scene deleted."),
+      deleteSuccess = () => res.send("Product deleted."),
       deleteError = err => res.send(500, err.message)
     )
 })
