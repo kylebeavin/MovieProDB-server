@@ -1,4 +1,8 @@
-module.exports = (sequelize, DataTypes) => {
+const Scene = require('./scene');
+const sequelizedb = require('../db');
+const sequelize = require('sequelize');
+
+const Entry = (sequelize, DataTypes) => {
   return sequelize.define('entry', {
     scene_id: DataTypes.INTEGER,
     product_id: DataTypes.INTEGER,
@@ -6,3 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     lastEditor_id: DataTypes.INTEGER
   })
 }
+
+// Entry.belongsTo(Scene(sequelizedb, sequelize));
+
+module.exports = Entry;

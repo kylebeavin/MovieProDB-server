@@ -1,18 +1,29 @@
 const router = require('express').Router();
 const sequelize = require('../db');
 
-const EntryModel = sequelize.import('../models/entryBridge.js');
+const Entry = sequelize.import('../models/entryBridge.js');
+const Scene = sequelize.import('../models/scene.js');
+// const Product = sequelize.import('../models/product.js');
 
 router.get('/:id', (req,res) => {
-  EntryModel
+  Entry
     .findOne({where: {
       id: req.params.id
     }})
     .then(data => res.json(data))
 })
 
+router.get('/', (req,res) => {
+  Entry
+    .findAll({include: [Scene]})
+    .then(
+      successRetrieval = data => res.json(data),
+      failedRetrieval = err => res.send(500, err.message)
+    )
+})
+
 router.post('/', (req,res) => {
-  EntryModel
+  Entry
     .create({
       scene_id: req.body.entry.scene_id,
       product_id: req.body.entry.product_id,
@@ -23,7 +34,7 @@ router.post('/', (req,res) => {
 })
 
 router.put('/:id', (req,res) => {
-  EntryModel
+  Entry
     .update({
       scene_id: req.body.entry.scene_id,
       product_id: req.body.entry.product_id,
@@ -36,7 +47,7 @@ router.put('/:id', (req,res) => {
 })
 
 router.delete('/delete/:id', (req,res) => {
-  EntryModel
+  Entry
     .destroy({where: { id: req.params.id }})
     .then(res.send("Entry deleted."))
 })
