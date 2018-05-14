@@ -1,18 +1,27 @@
 const router = require('express').Router();
 const sequelize = require('../db');
 
-const ProductModel = sequelize.import('../models/product.js');
+const Product = sequelize.import('../models/product.js');
 
 router.get('/:id', (req,res) => {
-  ProductModel
+  Product
     .findOne({where: {
       id: req.params.id
     }})
     .then(data => res.json(data))
 })
 
+router.get('/', (req,res) => {
+  Product
+    .findAll()
+    .then(
+        successRetrieval = data => res.json(data),
+        failedRetrieval = err => res.send(500, err.message)
+    )
+})
+
 router.post('/', (req,res) => {
-  ProductModel
+  Product
     .create({
       productName: req.body.product.productName,
       seller: req.body.product.seller,
@@ -30,7 +39,7 @@ router.post('/', (req,res) => {
 })
 
 router.put('/:id', (req,res) => {
-  ProductModel
+  Product
     .update({
       productName: req.body.product.productName,
       seller: req.body.product.seller,
@@ -47,7 +56,7 @@ router.put('/:id', (req,res) => {
 })
 
 router.delete('/delete/:id', (req,res) => {
-  ProductModel
+  Product
     .destroy({where: { id: req.params.id }})
     .then(
       deleteSuccess = () => res.send("Product deleted."),
